@@ -39,7 +39,6 @@ const Sidebarroutes = () => {
 
   const routes = isTeacherPage ? teacherRoutes:gustRoutes;
   
-
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
