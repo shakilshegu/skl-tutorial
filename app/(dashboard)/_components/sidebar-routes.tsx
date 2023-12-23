@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname } from "next/navigation";
 import { BarChart, Compass, Layout, List } from "lucide-react"
 import Sidebaritem from "./sidebaritem";
 
@@ -32,7 +33,13 @@ const teacherRoutes = [
 ]
 
 const Sidebarroutes = () => {
-  const routes = gustRoutes;
+
+  const pathname = usePathname()
+  const isTeacherPage = pathname?.includes("/teacher");
+
+  const routes = isTeacherPage ? teacherRoutes:gustRoutes;
+  
+
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
