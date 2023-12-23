@@ -4,6 +4,7 @@ import * as z from "zod"
 import axios from "axios"
 import {zodResolver} from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import Link from "next/link";
 import {
@@ -41,7 +42,7 @@ const CreatePage = () => {
             const response = await axios.post("/api/course",values)
             router.push(`/teacher/courses/${response.data.id}`);
         } catch (error) {
-            console.log(error);
+            toast.error("Somthing went wrong")
             
         }
     }
