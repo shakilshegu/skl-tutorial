@@ -9,80 +9,78 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage
 } from "@/components/ui/form"
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-
-
-interface TitleFormProps {
-    initialData: {
-        title: string
-    };
-    courseId: string
+interface DescriptionFormProps {
+  initialData: {
+    description: string
+  };
+  courseId: string
 
 };
 
 const formSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required"
-    })
+  description: z.string().min(1, {
+    message: "description is required"
+  })
 })
 
-const TitleForm = ({
-    initialData,
-    courseId
+const DescriptionForm = ({
+  initialData,
+  courseId
 
-}: TitleFormProps) => {
+}: DescriptionFormProps) => {
 
-    const [isEditing, setIsEditing] = useState(false)
-    const toggleEdit = () => setIsEditing((current) => !current);
+  const [isEditing, setIsEditing] = useState(false)
+  const toggleEdit = () => setIsEditing((current) => !current);
 
-    const router = useRouter()
+  const router = useRouter()
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: initialData
-    });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialData
+  });
 
-    const { isSubmitting, isValid } = form.formState;
+  const { isSubmitting, isValid } = form.formState;
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        try {
-            await axios.patch(`/api/courses/${courseId}`,values);
-            toast.success("Cource updated");
-            toggleEdit();
-            router.refresh()
-        } catch (error) {
-            toast.error("somthing went wrong")
-
-        }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Cource updated");
+      toggleEdit();
+      router.refresh()
+    } catch (error) {
+      toast.error("somthing went wrong")
 
     }
-    return (
-<div className="mt-6 border bg-slate-100 rounded-md p-4">
+
+  }
+  return (
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course title
+        Course description
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit title
+              Edit description
             </>
           )}
         </Button>
       </div>
       {!isEditing && (
         <p className="text-sm mt-2">
-          {initialData.title}
+          {initialData.description}
         </p>
       )}
       {isEditing && (
@@ -93,7 +91,7 @@ const TitleForm = ({
           >
             <FormField
               control={form.control}
-              name="title"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -120,7 +118,7 @@ const TitleForm = ({
       )}
     </div>
 
-    )
+  )
 }
 
-export default TitleForm
+export default DescriptionForm
