@@ -18,11 +18,12 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
+import { Course } from "@prisma/client";
 
 interface DescriptionFormProps {
-  initialData: {
-    description: string
-  };
+  initialData: Course;
   courseId: string
 
 };
@@ -46,7 +47,9 @@ const DescriptionForm = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
+    defaultValues:{
+      description:initialData?.description || ""
+    }
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -79,8 +82,11 @@ const DescriptionForm = ({
         </Button>
       </div>
       {!isEditing && (
-        <p className="text-sm mt-2">
-          {initialData.description}
+        <p className={cn(
+          "text-sm mt-2",
+          !initialData.description && "text-slate-500 italic"
+        )}>
+          {initialData.description || "No description"}
         </p>
       )}
       {isEditing && (
@@ -95,9 +101,9 @@ const DescriptionForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
+                    <Textarea
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced web development'"
+                      placeholder="e.g. 'This course is about....'"
                       {...field}
                     />
                   </FormControl>
