@@ -1,4 +1,4 @@
-import { withUt } from "uploadthing/tw";
+const {withUt} = require("uploadthing/tw")
 
 /** @type {import('tailwindcss').Config} */
 export default withUt({
