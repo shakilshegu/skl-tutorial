@@ -23,7 +23,7 @@ const formSchema = z.object({
   }),
 });
 
-export const ImageForm = ({
+ const ImageForm = ({
   initialData,
   courseId
 }: ImageFormProps) => {
@@ -100,3 +100,5 @@ export const ImageForm = ({
     </div>
   )
 }
+
+export default ImageForm
