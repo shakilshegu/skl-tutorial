@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon } from "lucide-react";
+import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -10,10 +10,10 @@ import { Attachment, Course } from "@prisma/client";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
-import  FileUpload  from "@/components/file-upload";
+import FileUpload from "@/components/file-upload";
 
 interface AttachmentFormProps {
-  initialData: Course & {attachments : Attachment[]};
+  initialData: Course & { attachments: Attachment[] };
   courseId: string;
 };
 
@@ -26,6 +26,7 @@ const AttachmentForm = ({
   courseId
 }: AttachmentFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [deletingId,setDeletingId] = useState<string | null>(null)
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -39,6 +40,19 @@ const AttachmentForm = ({
       router.refresh();
     } catch {
       toast.error("Something went wrong");
+    }
+  };
+
+  const onDelete = async (id:string)=>{
+    try {
+      setDeletingId(id);
+      await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
+      toast.success("Attachement Deteted")
+      router.refresh()
+    } catch {
+      toast.error("Somthin went wrong")
+    }finally{
+      setDeletingId(null)
     }
   }
 
@@ -56,18 +70,47 @@ const AttachmentForm = ({
               Add an file
             </>
           )}
-         
+
         </Button>
       </div>
       {!isEditing && (
         <>
-        {
-            initialData.attachments.length === 0 &&(
-                <p className="text-sm mt-2 text-slate-500 italic">
-                    No attachements yet
+          {
+            initialData.attachments.length === 0 && (
+              <p className="text-sm mt-2 text-slate-500 italic">
+                No attachements yet
+              </p>
+            )}
+          {initialData.attachments.length > 0 && (
+            <div className="space-y-2">
+              {initialData.attachments.map((attachment) => (
+                <div
+                  key={attachment.id}
+                  className="flex items-center p-3 w-full bg-sky-100 border-sky-200 border text-sky-700 rounder-md"
+                >
+                <File className="h-4 w-4 mr-2 flex-shrink-0"/>
+                <p className="text-xs line-clamp-1">
+                  {attachment.name}
                 </p>
-            )
-        }
+                {
+                  deletingId === attachment.id && (
+                    <div>
+                      <Loader2 className="h-4 w-4 animate-spin"/>
+                    </div>
+                  )}
+                  {
+                  deletingId !== attachment.id && (
+                    <button
+                    onClick={()=> onDelete(attachment.id)}
+                    className="ml-auto hover:opacity-75 transition "
+                    >
+                      <X className="h-4 w-4"/>
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
         </>
       )}
       {isEditing && (
@@ -81,7 +124,7 @@ const AttachmentForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-           Add  aynthing your students might need to complete the course.
+            Add  aynthing your students might need to complete the course.
           </div>
         </div>
       )}
