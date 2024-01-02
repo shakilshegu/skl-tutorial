@@ -12,7 +12,7 @@ import {
 } from "react-icons/fc";
 import { IconType } from "react-icons";
 
-import { CategoryItem } from "./category-item";
+import  CategoryItem  from "./category-item";
 
 interface CategoriesProps {
   items: Category[];
@@ -28,7 +28,7 @@ const iconMap: Record<Category["name"], IconType> = {
   "Engineering": FcEngineering,
 };
 
-export const Categories = ({
+ const Categories = ({
   items,
 }: CategoriesProps) => {
   return (
@@ -44,3 +44,4 @@ export const Categories = ({
     </div>
   )
 }
+export default Categories

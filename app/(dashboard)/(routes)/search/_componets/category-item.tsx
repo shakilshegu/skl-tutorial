@@ -16,7 +16,7 @@ interface CategoryItemProps {
   icon?: IconType;
 };
 
-export const CategoryItem = ({
+ const CategoryItem = ({
   label,
   value,
   icon: Icon,
@@ -57,3 +57,5 @@ export const CategoryItem = ({
     </button>
   )
 }
+
+export default CategoryItem
