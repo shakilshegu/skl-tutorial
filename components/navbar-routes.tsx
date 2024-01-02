@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { SearchInput } from "./search-input"
 
 const NavbarRoutes = () => {
   const pathname = usePathname()
