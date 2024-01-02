@@ -32,7 +32,7 @@ const formSchema = z.object({
   description: z.string().min(1),
 });
 
-export const ChapterDescriptionForm = ({
+ const ChapterDescriptionForm = ({
   initialData,
   courseId,
   chapterId
@@ -125,3 +125,5 @@ export const ChapterDescriptionForm = ({
     </div>
   )
 }
+
+export default ChapterDescriptionForm
