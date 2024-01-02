@@ -5,6 +5,8 @@ import { db } from "@/lib/db";
 
 import  Categories  from "./_componets/categories";
 import { SearchInput } from "@/components/search-input";
+import { getCourses } from "@/actions/get-courses";
+import { CoursesList } from "@/components/courses-list";
 
 interface SearchPageProps {
   searchParams: {
@@ -28,6 +30,11 @@ const SearchPage = async ({
     }
   });
 
+  const courses = await getCourses({
+     userId,
+     ...searchParams
+  })
+
  
   return (
     <>
@@ -38,7 +45,7 @@ const SearchPage = async ({
         <Categories
           items={categories}
         />
-       
+       <CoursesList items={courses}/>
       </div>
     </>
    );
