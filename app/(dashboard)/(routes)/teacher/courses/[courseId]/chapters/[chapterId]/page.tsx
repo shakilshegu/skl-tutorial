@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import { IconBadge } from "@/components/icon-badge";
+import ChapterTitleForm from "./_components/chapter-title-form";
 
 
 
@@ -76,7 +77,11 @@ const ChapterIdpage = async ({
                                 Customize your chapter
                             </h2>
                         </div>
-                        
+                        <ChapterTitleForm
+                         initialData={chapter}
+                         courseId={params.courseId}
+                         chapterId={params.chapterId}
+                        />
                     </div>
                 </div>
             </div>
