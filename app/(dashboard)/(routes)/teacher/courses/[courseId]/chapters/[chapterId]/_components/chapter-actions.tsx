@@ -28,7 +28,6 @@ export const ChapterActions = ({
   const onClick = async () => {
     try {
       setIsLoading(true);
-
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
         toast.success("Chapter unpublished");
@@ -44,7 +43,7 @@ export const ChapterActions = ({
       setIsLoading(false);
     }
   }
-  
+
   const onDelete = async () => {
     try {
       setIsLoading(true);
