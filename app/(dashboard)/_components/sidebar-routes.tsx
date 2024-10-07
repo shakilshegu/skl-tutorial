@@ -2,13 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { BarChart, Compass, Layout, List } from "lucide-react"
-import Sidebaritem from "./sidebaritem";
+import SidebarItem from "./sidebar-item";
 
 
 const gustRoutes = [
   {
     icon: Layout,
-    label: "Dashbord",
+    label: "Dashboard",
     href: "/",
   },
   {
@@ -32,7 +32,7 @@ const teacherRoutes = [
   },
 ]
 
-const Sidebarroutes = () => {
+const SidebarRoutes = () => {
 
   const pathname = usePathname()
   const isTeacherPage = pathname?.includes("/teacher");
@@ -42,7 +42,7 @@ const Sidebarroutes = () => {
   return (
     <div className="flex flex-col w-full">
       {routes.map((route) => (
-        <Sidebaritem
+        <SidebarItem
           key={route.href}
           icon={route.icon}
           label={route.label}
@@ -53,4 +53,4 @@ const Sidebarroutes = () => {
   )
 }
 
-export default Sidebarroutes
+export default SidebarRoutes

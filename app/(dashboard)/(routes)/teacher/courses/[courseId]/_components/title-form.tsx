@@ -56,11 +56,11 @@ const TitleForm = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/courses/${courseId}`,values);
-            toast.success("Cource updated");
+            toast.success("Course updated");
             toggleEdit();
             router.refresh()
         } catch (error) {
-            toast.error("somthing went wrong")
+            toast.error("something went wrong")
 
         }
 

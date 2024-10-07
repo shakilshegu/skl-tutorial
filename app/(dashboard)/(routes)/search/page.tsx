@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 
-import  Categories  from "./_componets/categories";
+import  Categories  from "./_components/categories";
 import { SearchInput } from "@/components/search-input";
 import { getCourses } from "@/actions/get-courses";
 import { CoursesList } from "@/components/courses-list";

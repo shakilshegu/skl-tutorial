@@ -5,15 +5,15 @@ import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils";
 
 
-interface SiderbarItemProps {
+interface SidebarItemProps {
     icon: LucideIcon;
     label: string;
     href: string;
 }
 
-const Sidebaritem = ({
+const SidebarItem = ({
     icon: Icon, label, href
-}: SiderbarItemProps) => {
+}: SidebarItemProps) => {
 
     const pathname = usePathname()
     const router = useRouter()
@@ -56,4 +56,4 @@ const Sidebaritem = ({
     )
 }
 
-export default Sidebaritem
+export default SidebarItem

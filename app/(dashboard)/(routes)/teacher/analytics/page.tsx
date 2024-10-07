@@ -3,7 +3,7 @@
 const AnalyticsPage = () => {
   return (
     <div>
-      Aanalytics AnalyticsPage
+      Analytics AnalyticsPage
     </div>
   )
 }
